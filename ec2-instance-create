@@ -1,0 +1,24 @@
+ec2-isntance launch and connect with ssh:
+=========================================
+
+01. down the keypair (.pem) file from AWS.  Note .pem is the private key file
+
+notes: 
+Connecting to a running Linux instance using an SSH client requires a public/private key pair. 
+Windows does not ship with an SSH client. PuTTY is a common SSH client, which is free to download and use. 
+However, PuTTY does not support the PEM (Privacy Enhanced Mail) key format. 
+The key downloaded from AWS is PEM format, so it must be converted to PPK (PuTTY Private Key). 
+Fortunately, PuTTYgen converts PEM key files to PPK format. PuTTYgen is also free to download and use
+
+02. with puttygen.exe open the keypair.pem file and save the private key file as privatekey.ppk locally.  You will use this file
+to connect to the ec2 instance
+
+03. Now, Launch putty.exe and enter the ec2 instance public ip and go to auth->ssh->enter the path to privatekey.ppk file
+
+04. open to launch the connection and enter the user-id:  ec2-user on the command line to connect to the ec2 instance.
+
+05. run the below command to get the instance a meta-data (public key)
+curl -w "\n" http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key
+
+06. enter below command to get the hostname of the ec2 instance from the meta-data
+curl -w "\n" http://169.254.169.254/latest/meta-data/hostname
