@@ -1,0 +1,15 @@
+# Add this to the user data section while creating ec2 instance
+# It creates a bucket and installs apache web server and creates a s3 bucket and takes backup of static file index.html to the s3.
+# Assign the role: AdminAccess to the ec2 during creation
+# Assign the security group: WebDMZ during ec2 creation
+
+#!/bin/bash
+yum update
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+echo "<html>hello web server pk aws startup script!
+welcome to my web page </html" > index.html
+aws s3 mb s3://pkawsgcp-bucket-processed
+aws s3 cp index.html s3://pkawsgcp-bucket-processed
