@@ -1,0 +1,14 @@
+1. add ssh chrome extension from here: https://chrome.google.com/webstore/detail/secure-shell/iodihamcpbpeioajjeobimgagajmlibd?hl=en-GB
+
+2. download the keypair locally into D:\PK\cloud\AWS\keys as below:
+  default-vpc-kp.pem
+3. generate the public key using below command
+  ssh-keygen -y -f default-vpc-kp.pem > default-vpc-kp.pub
+4. rename the .pem file to one without extension as below
+  move default-vpc-kp.pem default-vpc-kp  (very important !!!)
+5. Now contents of D:\PK\cloud\AWS\keys is:
+  default-vpc-kp
+  default-vpc-kp.pub
+6. for address enter: ec2-user@[PUBLIC_IP_ADDRESS]
+7. Import both the keys public and private key (with extension) and click connect
+
