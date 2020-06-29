@@ -1,3 +1,5 @@
+# ssh to the ec2 instance and install apache webserver and start the instance and enable chkconfig to start automatically during startup
+
 yum install httpd -y
 service httpd start
 chkconfig on
