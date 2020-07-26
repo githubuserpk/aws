@@ -13,7 +13,7 @@ default output:  [ press enter, default is json ]
 Step-3: create security group [optional]
 =============================
 Do if if you want, not necessary as we are going to use the Web-Access sg
-aws ec2 create security-group --group-name first-sg --description "my first sg from cmdline" --vpc-id vpc-08e768eac798531fe
+> aws ec2 create security-group --group-name first-sg --description "my first sg from cmdline" --vpc-id vpc-08e768eac798531fe
 
 Step-4: create instance:
 =========================
@@ -26,4 +26,4 @@ vpc id: vpc-08e768eac798531fe [ the vpc id ]
 subnet id: subnet-0b49ae67bfbcd0a77  [ this is eu-west-2a]
 
 
-> aws ec2 run-instances --image-id ami-04122be15033aa7ec --count 1 --instance-type t2.micro --key-name London-KP --security-group-ids sg-020c48a62358acf98 --subnet-id subnet-0b49ae67bfbcd0a77
+> aws ec2 run-instances --image-id ami-04122be15033aa7ec --count 1 --instance-type t2.micro --key-name London-KP --security-group-ids sg-020c48a62358acf98 --subnet-id subnet-0b49ae67bfbcd0a77  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=pk-instance}]"
