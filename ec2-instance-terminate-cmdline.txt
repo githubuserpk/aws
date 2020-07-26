@@ -1,0 +1,17 @@
+Step-1: Get instance id
+=======================
+On the windows cmd line, get the instance id of the instance you want to terminate
+Here we are querying for the instance with the tag: pk-instance
+
+> aws ec2 describe-instances --filters "Name=tag:Name,Values=pk-instance" --query "Reservations[].Instances[].InstanceId"
+
+output:
+[
+    "i-03e363e1acadcc455"
+]
+
+Step-2: terminate instance
+===========================
+> aws ec2 terminate-instances --instance-ids i-03e363e1acadcc455
+
+
