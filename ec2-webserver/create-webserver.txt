@@ -3,6 +3,19 @@
 yum install httpd -y
 service httpd start
 chkconfig on
+cd /var/www/html
+echo "This is pk webserver test page running on Amazon EC2 in AWS Cloud" > index.html
 
 #get public ip of the ec2 instance
 curl http://169.254.169.254/latest/meta-data/public-ipv4
+
+#====option-2: another way of doing the same given below
+#=========================================================
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+system enable httpd
+cd /var/www/html
+echo "This is pk webserver test page running on Amazon EC2 in AWS Cloud" > index.html
