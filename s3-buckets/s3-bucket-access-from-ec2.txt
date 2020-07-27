@@ -1,0 +1,40 @@
+EC2 bucket access:
+==================
+There are 2 options, option-1 is not recommended due to security reasons, option-2 is through the role and is recommended
+
+Option-1:
+Step-1: Login to EC2 command line 
+
+Step-2: run aws s3 ls 
+output: 
+error 
+
+Step-3: run aws configure and provide the akid and skid and region values 
+
+Step-4: now again run aws s3 ls
+This will be successful and will return the bucket name output
+output: 
+2020-07-27 14:23:46 pkawsgcp-bucket
+
+This is successful, but if you see cat .aws/credentials, gives below output
+This is a security risk
+output:
+[default]
+aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key = aaaaaaaaaaaaaaaabbbbbbbbbbcccccxffffff
+
+Option-2:
+
+Step-1:
+Create a role called S3-Admin-Role and attach a permission called "AmazonS3FullAccess" to the role by doing the following
+
+IAM --> Roles --> Create Role --> Select EC2 --> Select "AmazonS3FullAccess" permissions --> Next --> Rolename: S3-Admin-Role --> Click "Create Role"
+
+Step-2: Now run the cmd from EC2 cmdline
+> aws s3 ls
+This will be successful and will return the bucket name output
+
+output: 
+2020-07-27 14:23:46 pkawsgcp-bucket
+
+
