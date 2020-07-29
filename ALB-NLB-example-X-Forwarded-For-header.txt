@@ -1,0 +1,45 @@
+Step-1: create 2 EC2 instances with the below user-data to install a apache web server
+Let the 2 instances be EC2-1 and EC2-2
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+system enable httpd
+cd /var/www/html
+sudo su 
+NOW=`date +'%Y-%m-%d %H:%M:%S,%3N'`
+echo $NOW > index.html
+
+Step-2: Create an ALB and a TG pointing to EC2 like this: TargetGroup-ALB --> EC2-1
+
+Step-3: Create an NLB and a TG pointing to EC2 like this: TargetGroup-NLB --> EC2-2
+
+Step-4: view the http access log and grep for the client browser ip
+Get your browser ip from checkip.amazonaws.com and let output: 90.206.25.4
+
+cat /var/log/httpd/access_log | grep 90.206.25.4
+output:
+no result as ALB operates at application layer, ie Layer 7
+
+Step-5: Now, modify the httpd.conf file to get the X-Forwarded-For header which will have the client ip
+Comment the first 2 log lines and add 2 new lines as shown below
+
+sudo vi /etc/httpd/conf/httpd.conf
+
+    #LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    #LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+    LogFormat "%{X-Forwarded-For}i %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+Restart http server: 
+sudo service httpd restart
+
+cat /var/log/httpd/access_log | grep 90.206.25.4
+output: 
+you will see results with the client ip address
+
+Step-6: For NLB, login in to EC2-2, and you will be able to see the clien ip directly no change required, as NLB is Level-4 protocol
+
+
