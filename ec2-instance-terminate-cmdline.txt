@@ -13,23 +13,3 @@ output:
 Step-2: terminate instance
 ===========================
 > aws ec2 terminate-instances --instance-ids i-03e363e1acadcc455
-
-
-====tmp
-aws ec2 run-instances --image-id ami-04122be15033aa7ec --count 1 --instance-type t2.micro --key-name London-KP --security-group-ids sg-020c48a62358acf98 --subnet-id subnet-0b49ae67bfbcd0a77  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=pk-instance}]"
-=============================
-
-"pk-create-ec2-inst-pvtsn.bat" 
-
-aws ec2 run-instances --image-id ami-04122be15033aa7ec --count 1 --instance-type t2.micro --key-name London-KP --security-group-ids sg-020c48a62358acf98 --subnet-id subnet-01a3c604f35f913cd  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=pk-instance}]"
-
-=============================
-pk-getinstance-id.bat
-
-aws ec2 describe-instances --filters "Name=tag:Name,Values=pk-instance" --query "Reservations[].Instances[].InstanceId"
-============================= 
-
-pk-terminate-instance.bat
-aws ec2 terminate-instances --instance-ids %1
-
-====tmp ends
