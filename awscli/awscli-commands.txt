@@ -1,0 +1,15 @@
+aws --version
+output: 
+aws-cli/2.0.7 Python/3.7.5 Windows/10 botocore/2.0.0dev11
+
+create awscli named profiles:
+==============================
+aws configure --profile <<userid>>
+
+copy a folder to s3 
+====================
+create a folder called synctest and copy local files to it
+aws s3 cp synctest s3://dctlabs/synctest --recursive
+aws s3 sync synctest s3://dctlabs/synctest 
+
+# it compares the files and just copied the changed files similar to rsync
